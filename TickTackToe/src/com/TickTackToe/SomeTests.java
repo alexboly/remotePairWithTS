@@ -13,14 +13,14 @@ public class SomeTests {
         // given
         String table = "";
 
-        setStartingPlayerName(TIC_PLAYER_NAME);
-        setStartingPlayer(new Player(TIC_PLAYER_NAME, TIC));
+        Player player = new Player(TIC_PLAYER_NAME, TIC);
+		setStartingPlayer(player);
 
         // when
-        table = makeTheTicPlayerMove(table);
+        table = nextMove(table);
 
         // then
-        assertEquals(whoWon(table), TIC_PLAYER_NAME);
+        assertEquals(whoWon(table), player);
     }
 
 	@Test
@@ -28,14 +28,14 @@ public class SomeTests {
         // given
         String table = "";
 
-        setStartingPlayerName(TOE_PLAYER_NAME);
-        setStartingPlayer(new Player(TOE_PLAYER_NAME, TOE));
+        Player player = new Player(TOE_PLAYER_NAME, TOE);
+        setStartingPlayer(player);
 
         // when
-        table = makeTheToePlayerMove(table);
+        table = nextMove(table);
 
         // then
-        assertEquals(whoWon(table), TOE_PLAYER_NAME);
+        assertEquals(whoWon(table), player);
     }
 
 
@@ -44,7 +44,7 @@ public class SomeTests {
     	String table = "";
 
         setStartingPlayer(new Player(TIC_PLAYER_NAME, TIC));
-    	table = makeTheTicPlayerMove(table);
+    	table = nextMove(table);
     	
     	assertTrue(isTic(table));
     }
@@ -54,7 +54,7 @@ public class SomeTests {
     	String table = "";
 
         setStartingPlayer(new Player(TOE_PLAYER_NAME, TOE));
-    	table = makeTheToePlayerMove(table);
+    	table = nextMove(table);
 
     	assertTrue(isToe(table));
     }
@@ -64,7 +64,7 @@ public class SomeTests {
     	String table = "";
 
         setStartingPlayer(new Player(TIC_PLAYER_NAME, TIC));
-    	table = makeTheTicPlayerMove(table);
+    	table = nextMove(table);
 
     	assertFalse(isToe(table));
     }
@@ -74,7 +74,7 @@ public class SomeTests {
     	String table = "";
 
         setStartingPlayer(new Player(TOE_PLAYER_NAME, TOE));
-    	table = makeTheToePlayerMove(table);
+    	table = nextMove(table);
 
     	assertFalse(isTic(table));
     }
@@ -86,7 +86,7 @@ public class SomeTests {
         return table.charAt(0) == TOE;
     }
 
-    private String makeTheToePlayerMove(String table) {
+    private String nextMove(String table) {
         return player.move(table);
     }
 
@@ -94,26 +94,17 @@ public class SomeTests {
 		return table.charAt(0) == TIC;
 	}
 
-	private String firstPlayer;
 	private Player player;
-
-    private void setStartingPlayerName(String firstPlayer) {
-        this.firstPlayer = firstPlayer;
-    }
 
     private void setStartingPlayer(Player ticPlayer) {
 		this.player = ticPlayer;
 	}
 
-    private String whoWon(String table) {
-        return firstPlayer;
+    private Player whoWon(String table) {
+        return player;
     }
 
-    private String makeTheTicPlayerMove(String table) {
-        return player.move(table);
-    }
-
-    class Player{
+    static class Player{
     	private String name;
         private Character moveCharacter;
 
@@ -121,7 +112,7 @@ public class SomeTests {
     		this.name = name;
             this.moveCharacter = moveCharacter;
     	}
-
+		
     	public String move(String table){
     		return moveCharacter.toString();
     	}
