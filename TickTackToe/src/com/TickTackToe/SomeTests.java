@@ -8,11 +8,6 @@ public class SomeTests {
     private static final String FIRST_PLAYER = "X";
 
     @Test
-	public void Test(){
-		assertFalse(false);
-	}
-
-    @Test
     public void emptyBoardOneByOne() {
         // given
         String table = "";
@@ -25,8 +20,21 @@ public class SomeTests {
         // then
         assertEquals(whoWon(table), FIRST_PLAYER);
     }
+    
+    @Test
+    public void tickIsPutOnTheTable(){
+    	String table = "";
+    	
+    	table = putTic(table);
+    	
+    	assertTrue(isTic(table));
+    }
 
-    private String firstPlayer;
+    private boolean isTic(String table) {
+		return table.charAt(0) == 'X';
+	}
+
+	private String firstPlayer;
 
     private void setStartingPlayer(String firstPlayer) {
         this.firstPlayer = firstPlayer;
@@ -37,6 +45,6 @@ public class SomeTests {
     }
 
     private String putTic(String table) {
-        return null;
+        return "X";
     }
 }
