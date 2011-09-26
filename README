@@ -1,0 +1,19 @@
+# Tick Tack Toe
+
+## Requirements
+
+First get it to alternate turns and track the game winner (if any)
+
+Then begin to introduce computer play for a good second demo (or challenge)
+
+## Stories
+
+Empty board, two players, alternate moves, one of them wins.
+
+Output: the moves, who wins
+
+* Empty board of 1x1, whoever starts wins
+
+[TBD]
+* Empty board of 2x2, alternate turns, winning condition
+* Empty board of 3x3
