@@ -14,7 +14,7 @@ public class SomeTests {
         String table = "";
 
         setStartingPlayerName(TIC_PLAYER_NAME);
-        setStartingPlayer(new TicPlayer(TIC_PLAYER_NAME));
+        setStartingPlayer(new Player(TIC_PLAYER_NAME, TIC));
 
         // when
         table = makeTheTicPlayerMove(table);
@@ -29,6 +29,7 @@ public class SomeTests {
         String table = "";
 
         setStartingPlayerName(TOE_PLAYER_NAME);
+        setStartingPlayer(new Player(TOE_PLAYER_NAME, TOE));
 
         // when
         table = makeTheToePlayerMove(table);
@@ -36,11 +37,13 @@ public class SomeTests {
         // then
         assertEquals(whoWon(table), TOE_PLAYER_NAME);
     }
-    
+
+
     @Test
     public void tickIsPutOnTheTable(){
     	String table = "";
-    	
+
+        setStartingPlayer(new Player(TIC_PLAYER_NAME, TIC));
     	table = makeTheTicPlayerMove(table);
     	
     	assertTrue(isTic(table));
@@ -50,6 +53,7 @@ public class SomeTests {
     public void toeIsPutOnTheTable(){
     	String table = "";
 
+        setStartingPlayer(new Player(TOE_PLAYER_NAME, TOE));
     	table = makeTheToePlayerMove(table);
 
     	assertTrue(isToe(table));
@@ -59,6 +63,7 @@ public class SomeTests {
     public void toeIsNotPutOnTheTable(){
     	String table = "";
 
+        setStartingPlayer(new Player(TIC_PLAYER_NAME, TIC));
     	table = makeTheTicPlayerMove(table);
 
     	assertFalse(isToe(table));
@@ -68,6 +73,7 @@ public class SomeTests {
     public void ticIsNotPutOnTheTable(){
     	String table = "";
 
+        setStartingPlayer(new Player(TOE_PLAYER_NAME, TOE));
     	table = makeTheToePlayerMove(table);
 
     	assertFalse(isTic(table));
@@ -81,7 +87,7 @@ public class SomeTests {
     }
 
     private String makeTheToePlayerMove(String table) {
-        return TOE.toString();
+        return player.move(table);
     }
 
     private boolean isTic(String table) {
@@ -89,13 +95,13 @@ public class SomeTests {
 	}
 
 	private String firstPlayer;
-	private TicPlayer player;
+	private Player player;
 
     private void setStartingPlayerName(String firstPlayer) {
         this.firstPlayer = firstPlayer;
     }
 
-    private void setStartingPlayer(TicPlayer ticPlayer) {
+    private void setStartingPlayer(Player ticPlayer) {
 		this.player = ticPlayer;
 	}
 
@@ -104,20 +110,22 @@ public class SomeTests {
     }
 
     private String makeTheTicPlayerMove(String table) {
-        return new TicPlayer("tic_player").move(table);
+        return player.move(table);
     }
-    
-    class TicPlayer{
-    	private String name;
 
-		public TicPlayer(String name){
+    class Player{
+    	private String name;
+        private Character moveCharacter;
+
+		public Player(String name, Character moveCharacter){
     		this.name = name;
+            this.moveCharacter = moveCharacter;
     	}
-    	
+
     	public String move(String table){
-    		return TIC.toString();
+    		return moveCharacter.toString();
     	}
-    	
+
     	public String getName(){
     		return name;
     	}
