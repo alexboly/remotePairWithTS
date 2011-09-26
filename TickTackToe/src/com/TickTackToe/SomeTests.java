@@ -5,20 +5,35 @@ import static org.junit.Assert.*;
 
 public class SomeTests {
 
-    private static final String FIRST_PLAYER = "X";
+    private static final String TIC_PLAYER = "tic_player";
+    private static final String TOE_PLAYER = "toe_player";
 
     @Test
-    public void emptyBoardOneByOne() {
+    public void emptyBoardOneByOneFirstTic() {
         // given
         String table = "";
 
-        setStartingPlayer(FIRST_PLAYER);
+        setStartingPlayer(TIC_PLAYER);
 
         // when
         table = putTic(table);
 
         // then
-        assertEquals(whoWon(table), FIRST_PLAYER);
+        assertEquals(whoWon(table), TIC_PLAYER);
+    }
+
+    @Test
+    public void emptyBoardOneByOneFirstToe() {
+        // given
+        String table = "";
+
+        setStartingPlayer(TOE_PLAYER);
+
+        // when
+        table = putToe(table);
+
+        // then
+        assertEquals(whoWon(table), TOE_PLAYER);
     }
     
     @Test
@@ -30,8 +45,46 @@ public class SomeTests {
     	assertTrue(isTic(table));
     }
 
+    @Test
+    public void toeIsPutOnTheTable(){
+    	String table = "";
+
+    	table = putToe(table);
+
+    	assertTrue(isToe(table));
+    }
+
+    @Test
+    public void toeIsNotPutOnTheTable(){
+    	String table = "";
+
+    	table = putTic(table);
+
+    	assertFalse(isToe(table));
+    }
+
+    @Test
+    public void ticIsNotPutOnTheTable(){
+    	String table = "";
+
+    	table = putToe(table);
+
+    	assertFalse(isTic(table));
+    }
+
+    private static final Character TIC = 'X';
+    private static final Character TOE = 'O';
+
+    private boolean isToe(String table) {
+        return table.charAt(0) == TOE;
+    }
+
+    private String putToe(String table) {
+        return TOE.toString();
+    }
+
     private boolean isTic(String table) {
-		return table.charAt(0) == 'X';
+		return table.charAt(0) == TIC;
 	}
 
 	private String firstPlayer;
@@ -45,6 +98,6 @@ public class SomeTests {
     }
 
     private String putTic(String table) {
-        return "X";
+        return TIC.toString();
     }
 }
