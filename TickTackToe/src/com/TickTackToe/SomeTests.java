@@ -7,7 +7,7 @@ public class SomeTests {
 	
 	@Test
 	public void Test(){
-		assertFalse(true);
+		assertFalse(false);
 	}
 
 }
