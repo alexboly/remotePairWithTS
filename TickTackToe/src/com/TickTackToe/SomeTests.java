@@ -5,42 +5,43 @@ import static org.junit.Assert.*;
 
 public class SomeTests {
 
-    private static final String TIC_PLAYER = "tic_player";
-    private static final String TOE_PLAYER = "toe_player";
+    private static final String TIC_PLAYER_NAME = "tic_player";
+    private static final String TOE_PLAYER_NAME = "toe_player";
 
     @Test
     public void emptyBoardOneByOneFirstTic() {
         // given
         String table = "";
 
-        setStartingPlayer(TIC_PLAYER);
+        setStartingPlayerName(TIC_PLAYER_NAME);
+        setStartingPlayer(new TicPlayer(TIC_PLAYER_NAME));
 
         // when
-        table = putTic(table);
+        table = makeTheTicPlayerMove(table);
 
         // then
-        assertEquals(whoWon(table), TIC_PLAYER);
+        assertEquals(whoWon(table), TIC_PLAYER_NAME);
     }
 
-    @Test
+	@Test
     public void emptyBoardOneByOneFirstToe() {
         // given
         String table = "";
 
-        setStartingPlayer(TOE_PLAYER);
+        setStartingPlayerName(TOE_PLAYER_NAME);
 
         // when
-        table = putToe(table);
+        table = makeTheToePlayerMove(table);
 
         // then
-        assertEquals(whoWon(table), TOE_PLAYER);
+        assertEquals(whoWon(table), TOE_PLAYER_NAME);
     }
     
     @Test
     public void tickIsPutOnTheTable(){
     	String table = "";
     	
-    	table = putTic(table);
+    	table = makeTheTicPlayerMove(table);
     	
     	assertTrue(isTic(table));
     }
@@ -49,7 +50,7 @@ public class SomeTests {
     public void toeIsPutOnTheTable(){
     	String table = "";
 
-    	table = putToe(table);
+    	table = makeTheToePlayerMove(table);
 
     	assertTrue(isToe(table));
     }
@@ -58,7 +59,7 @@ public class SomeTests {
     public void toeIsNotPutOnTheTable(){
     	String table = "";
 
-    	table = putTic(table);
+    	table = makeTheTicPlayerMove(table);
 
     	assertFalse(isToe(table));
     }
@@ -67,7 +68,7 @@ public class SomeTests {
     public void ticIsNotPutOnTheTable(){
     	String table = "";
 
-    	table = putToe(table);
+    	table = makeTheToePlayerMove(table);
 
     	assertFalse(isTic(table));
     }
@@ -79,7 +80,7 @@ public class SomeTests {
         return table.charAt(0) == TOE;
     }
 
-    private String putToe(String table) {
+    private String makeTheToePlayerMove(String table) {
         return TOE.toString();
     }
 
@@ -88,16 +89,37 @@ public class SomeTests {
 	}
 
 	private String firstPlayer;
+	private TicPlayer player;
 
-    private void setStartingPlayer(String firstPlayer) {
+    private void setStartingPlayerName(String firstPlayer) {
         this.firstPlayer = firstPlayer;
     }
+
+    private void setStartingPlayer(TicPlayer ticPlayer) {
+		this.player = ticPlayer;
+	}
 
     private String whoWon(String table) {
         return firstPlayer;
     }
 
-    private String putTic(String table) {
-        return TIC.toString();
+    private String makeTheTicPlayerMove(String table) {
+        return new TicPlayer("tic_player").move(table);
+    }
+    
+    class TicPlayer{
+    	private String name;
+
+		public TicPlayer(String name){
+    		this.name = name;
+    	}
+    	
+    	public String move(String table){
+    		return TIC.toString();
+    	}
+    	
+    	public String getName(){
+    		return name;
+    	}
     }
 }
